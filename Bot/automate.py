@@ -1,5 +1,5 @@
 from random_word import RandomWords
-from secrets import email, password
+import secrets
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -52,7 +52,12 @@ def getRandomWord():
 
 def searchWord(driver):
     #Inserts word into search box and searches
-    search = driver.find_element_by_class_name('b_searchbox')
+    try:
+        search = driver.find_element_by_class_name('b_searchbox')
+    except:
+        print("Could not find search bar")
+        quit()
+
     word = getRandomWord()
 
     search.clear()
@@ -62,14 +67,17 @@ def searchWord(driver):
 def repSearch(driver, count):
     #Searches repeatedly for specified count with one minute rest
     for i in range(count):
-        print("Search", count)
+        print("Search", i)
         searchWord(driver)
         time.sleep(60)
 
 if __name__ == '__main__':
 
+    #Change email and password here
+    email = secrets.email
+    password = secrets.password
+
     driver = createDriver()
     authenticate(driver, email, password)
     repSearch(driver, 30)
     driver.quit()
-
