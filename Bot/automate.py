@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from random_word import RandomWords
 import secrets
 from selenium import webdriver
@@ -5,17 +6,19 @@ from selenium.webdriver.common.keys import Keys
 import time
 import os
 
-def createDriver():
+def createDriver(headless=True):
     #Returns Firefox Webdriver
     #Change path to geckodriver below
     try:
         os.environ['PATH'] += os.pathsep + "/usr/local/bin/"
         options = webdriver.FirefoxOptions()
-        #options.add_argument('--headless')  #Uncomment to run headless
+        if headless:
+            options.add_argument('--headless')  #Uncomment to run headless
         driver = webdriver.Firefox(options=options)
 
         base = 'https://www.bing.com/search?q=search'
         driver.get(base)
+        print("***Created Driver***")
         return driver
     except Exception as error:
         print("Error:", error)
@@ -70,14 +73,27 @@ def repSearch(driver, count):
         print("Search", i)
         searchWord(driver)
         time.sleep(60)
+    print("***Completed Searches***")
+
+def getPoints(driver):
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'lxml')
+    scores = soup.find_all(id='id_rc')
+    for score in scores:
+        return score.text
 
 if __name__ == '__main__':
 
     #Change email and password here
-    email = secrets.email
-    password = secrets.password
+    emails = secrets.emails
+    passwords = secrets.passwords
 
-    driver = createDriver()
-    authenticate(driver, email, password)
-    repSearch(driver, 30)
-    driver.quit()
+    for i in range(len(emails)):
+
+        email = emails[i]
+        password = passwords[i]
+
+        driver = createDriver(False)
+        authenticate(driver, email, password)
+        repSearch(driver, 30)
+        driver.quit()
