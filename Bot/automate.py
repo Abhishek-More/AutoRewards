@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from random_word import RandomWords
 import secrets
 from selenium import webdriver
@@ -75,23 +74,9 @@ def repSearch(driver, count):
         time.sleep(60)
     print("***Completed Searches***")
 
-def getPoints(driver):
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'lxml')
-    scores = soup.find_all(id='id_rc')
-    for score in scores:
-        return score.text
-
 if __name__ == '__main__':
 
-    #Change email and password here
-    emails = secrets.emails
-    passwords = secrets.passwords
-
-    for i in range(len(emails)):
-
-        email = emails[i]
-        password = passwords[i]
+    for email, password in secrets.data.items():
 
         driver = createDriver(False)
         authenticate(driver, email, password)

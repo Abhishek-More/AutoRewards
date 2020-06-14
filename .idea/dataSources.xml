@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="users" uuid="06af0086-fa93-4491-8e7c-1b553f349f1f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\Python Projects\AutoRewards\Server\users.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="site" uuid="026ff875-db1d-441e-9502-ca86e539ca16">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\Python Projects\AutoRewards\Server\site.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
