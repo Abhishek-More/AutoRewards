@@ -1,3 +1,5 @@
+import app
+import db_upload
 from random_word import RandomWords
 import secrets
 from selenium import webdriver
@@ -66,19 +68,23 @@ def searchWord(driver):
     search.send_keys(word)
     search.send_keys(Keys.ENTER)
 
-def repSearch(driver, count):
+def repSearch(driver, email,count):
     #Searches repeatedly for specified count with one minute rest
     for i in range(count):
         print("Search", i)
         searchWord(driver)
-        time.sleep(60)
+        points = db_upload.scrapeInfo(driver)
+        db_upload.uploadData(email, points)
+        time.sleep(10)
     print("***Completed Searches***")
 
 if __name__ == '__main__':
+
+    #app.run()
 
     for email, password in secrets.data.items():
 
         driver = createDriver(False)
         authenticate(driver, email, password)
-        repSearch(driver, 30)
+        repSearch(driver, email, 30)
         driver.quit()
