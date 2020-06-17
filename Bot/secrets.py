@@ -4,6 +4,5 @@ Enter Microsoft account authentication information here
 """
 
 data = {
-    "wholesomememeinstabot@gmail.com": "testingpurposespass123",
-    "usasansadm@gmail.com": "SansSearch",
+    "<YOUR_USERNAME>": "<YOUR_PASSWORD>",
 }
